@@ -6,6 +6,7 @@ import { items } from './data/items';
 import { getCurrentMonth, filterListByMonth } from './helpers/dateFilter';
 import { TableArea } from './components/TableArea';
 import { InfoArea } from './components/InfoArea';
+import { InputArea } from './components/InputArea';
 
 
 const App = () => {
@@ -20,8 +21,32 @@ const App = () => {
     setFilteredList( filterListByMonth(list, currentMonth));
   }, [list, currentMonth])
 
+  useEffect(() => {
+    let incomeCount = 0;
+    let expenseCount = 0;
+
+    for(let i in filteredList) {
+      if (categories[filteredList[i].category].expense) {
+        expenseCount += filteredList[i].value;
+      } else {
+        incomeCount += filteredList[i].value;
+      }
+    }
+
+    setIncome(incomeCount);
+    setexpense(expenseCount);
+
+
+  }, [filteredList]);
+
   const handleMonthChange = (newMonth: string) => {
     setCurrentMonth(newMonth);
+  }
+
+  const handleAddItem = (item: Item) => {
+    let newList = [...list];
+    newList.push(item);
+    setList(newList);
   }
 
   return (
@@ -39,7 +64,7 @@ const App = () => {
                 
               />
 
-              {/* Area de Inserçao */}
+              <InputArea onAdd={handleAddItem} />
 
               <TableArea list={filteredList} />
 
