@@ -7,7 +7,7 @@ import { getCurrentMonth, filterListByMonth } from './helpers/dateFilter';
 import { TableArea } from './components/TableArea';
 import { InfoArea } from './components/InfoArea';
 import { InputArea } from './components/InputArea';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const App = () => {
   const[list, setList] = useState(items);
@@ -50,27 +50,29 @@ const App = () => {
   }
 
   return (
-      <C.Container>
-            <C.Header>
-              <C.HeaderText>Sistema Financeiro</C.HeaderText>
-            </C.Header>
-            <C.Body>
 
-              <InfoArea
-                currentMonth={currentMonth}
-                onMonthChange={handleMonthChange}
-                income={income}
-                expense={expense} 
-                
-              />
+        <C.Container>
+                <C.Header>
+                  <C.HeaderText>Sistema Financeiro - Colégio DomBosco</C.HeaderText>
+                </C.Header>
+                <C.Body>
 
-              <InputArea onAdd={handleAddItem} />
+                <Routes>
+                  <Route path='/' element={<InfoArea currentMonth={currentMonth} onMonthChange={handleMonthChange} income={income} expense={expense} />}/>
+                </Routes>
 
-              <TableArea list={filteredList} />
+                <Routes>
+                   <Route path='/' element={<InputArea onAdd={handleAddItem} />}/>
+                </Routes>
+               
+               <Routes>
+                  <Route path='/' element={<TableArea list={filteredList} />}/>
+               </Routes>
+               
 
-
-            </C.Body>
-      </C.Container>
+                </C.Body>
+          </C.Container>
+     
   );
 }
 
