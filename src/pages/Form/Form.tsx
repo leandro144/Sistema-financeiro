@@ -40,6 +40,7 @@ const Form = () => {
             name='email'
             value={name}
             onChange={((e) => setName(e.target.value))}
+            required
           />
           <C.Input
             type="password"
@@ -47,6 +48,7 @@ const Form = () => {
             name='senha'
             value={password}
             onChange={((e) => setPassword(e.target.value))}
+            required
           />
           <C.Button 
             type='submit'
